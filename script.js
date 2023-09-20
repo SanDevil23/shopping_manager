@@ -1,6 +1,7 @@
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
+const itemClear = document.getElementById("clear");
 
 function addItem(e) {
   e.preventDefault();
@@ -17,7 +18,7 @@ function addItem(e) {
   const li = document.createElement("li");
   li.appendChild(document.createTextNode(newItem));
 
-  const button = createButton('remove-item btn-link text-red');
+  const button = createButton("remove-item btn-link text-red");
   li.appendChild(button);
 
   console.log(li);
@@ -29,7 +30,7 @@ function addItem(e) {
 function createButton(classes) {
   const button = document.createElement("button");
   button.className = classes;
-  const icon = createIcon('fa-solid fa-xmark');
+  const icon = createIcon("fa-solid fa-xmark");
   button.appendChild(icon);
   return button;
 }
@@ -39,5 +40,20 @@ function createIcon(classes) {
   icon.className = classes;
   return icon;
 }
+
+function removerItem(e) {
+  if (e.target.parentElement.classList.contains("remove-item")) {
+    e.target.parentElement.parentElement.remove();
+  }
+}
+
+function clearItems() {
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild);
+  }
+}
+
 // event listeners
 itemForm.addEventListener("submit", addItem);
+itemList.addEventListener("click", removerItem);
+itemClear.addEventListener("click", clearItems);
